@@ -110,6 +110,28 @@ octave --quiet tests/run_tests.m
 See VALIDATION.md for the baseline and hardware checklist. Current installation
 uses addpath; pkg install packaging is deliberately deferred.
 
+### Continuous integration
+
+The `Octave offline tests` GitHub Actions workflow runs on every push and pull
+request, and can also be started manually from the repository's Actions tab.
+It installs GNU Octave on Ubuntu 24.04 and runs `tests/run_tests.m` without user
+startup files. An assertion failure fails the job; stalled tests time out.
+Both binary and hexadecimal modes are exercised through `MockSerial`, so no
+ESP32, USB connection, credentials, or instrument-control package is needed.
+The workflow has read-only repository permission and does not publish releases.
+
+Run the same test command locally from the library root:
+
+```sh
+octave --no-gui --quiet --no-init-file --no-site-file tests/run_tests.m
+```
+
+Inspect results under [Actions](https://github.com/smartsensingme/esp_timeseries_octave/actions).
+These Linux-based simulated tests do not validate Windows/macOS USB drivers,
+physical Linux USB behavior, throughput, or motor safety. Hardware validation
+remains separate. Requiring this check before merging is an optional repository
+branch-protection setting; the workflow alone does not enforce it.
+
 ## License
 
 MIT; see [LICENSE](LICENSE). This applies to this library, not to external

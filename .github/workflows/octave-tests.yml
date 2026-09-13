@@ -1,0 +1,34 @@
+name: Octave offline tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    name: Protocol tests (Ubuntu)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out library
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install GNU Octave
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends octave
+
+      - name: Report runtime version
+        run: octave --version
+
+      # MockSerial exercises both wire modes without USB or instrument-control.
+      # Uncaught Octave assertions must propagate a nonzero exit status.
+      - name: Run offline protocol tests
+        timeout-minutes: 5
+        run: octave --no-gui --quiet --no-init-file --no-site-file tests/run_tests.m
