@@ -32,3 +32,18 @@ jobs:
       - name: Run offline protocol tests
         timeout-minutes: 5
         run: octave --no-gui --quiet --no-init-file --no-site-file tests/run_tests.m
+
+      - name: Build installable package
+        run: octave --no-gui --quiet --no-init-file --no-site-file scripts/build_package.m
+
+      - name: Test isolated package lifecycle
+        timeout-minutes: 5
+        run: octave --no-gui --quiet --no-init-file --no-site-file tests/test_package.m
+
+      - name: Upload tested package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: octave-package
+          path: dist/*.tar.gz
+          if-no-files-found: error
+          retention-days: 30

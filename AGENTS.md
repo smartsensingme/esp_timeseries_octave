@@ -20,6 +20,13 @@ Also run the consuming application's offline tests. Test macOS binary and
 Windows block mode on actual hardware before claiming unchanged throughput.
 Linux hardware validation remains outstanding.
 
+For packaging changes, build with scripts/build_package.m and test with
+tests/test_package.m in separate fresh Octave processes. The latter isolates
+the package registry and must use installed functions, not source inst/.
+Keep LICENSE and COPYING identical. Never commit dist/ or retag v0.1.0.
+CI uploads temporary artifacts; a permanent GitHub Release is a separate
+publication step. Version comes from DESCRIPTION.
+
 The baseline and release gates are in VALIDATION.md. Do not turn observed
 Windows symptoms into a certain driver diagnosis. The owner selected MIT and
 the public repository https://github.com/smartsensingme/esp_timeseries_octave.git.

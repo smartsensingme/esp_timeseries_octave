@@ -1,5 +1,7 @@
 root = fileparts(fileparts(mfilename("fullpath")));
-addpath(fullfile(root,"inst"));
+if (! exist ("test_installed", "var") || ! test_installed)
+  addpath(fullfile(root,"inst"));
+endif
 addpath(fullfile(root,"tests"));
 assert(esp_ts_crc32(uint8("123456789")) == uint32(hex2dec("CBF43926")));
 for mode = {"binary-framed", "block-hex"}

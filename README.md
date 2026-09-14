@@ -6,6 +6,33 @@ PID, application paths, or angle-LUT package is required.
 
 ## Installation and first capture
 
+### Installable package (0.2.0)
+
+Download the built `esp_timeseries_octave-0.2.0.tar.gz` archive, then in Octave:
+
+```octave
+pkg install -local esp_timeseries_octave-0.2.0.tar.gz
+pkg load esp_timeseries_octave
+```
+
+Installation is persistent; run `pkg load esp_timeseries_octave` in each new
+session instead of manually adding `inst/`. Use `pkg list` to inspect installed
+versions, `pkg unload esp_timeseries_octave` to remove it from the session, and
+`pkg uninstall esp_timeseries_octave` to remove the installed package.
+GNU Octave 8.4 or newer is required. Live USB also requires instrument-control
+with `serialport` and `serialportlist`; install that separately. It is a runtime
+requirement for USB, not a mandatory package dependency, so offline decoding
+and protocol tests remain usable without it. No native compilation is needed.
+
+The package is generated in `dist/` locally and as a GitHub Actions artifact
+after tests pass. An Actions artifact is temporary (30 days); extract its outer
+ZIP to obtain the installable tar.gz. For permanent distribution, attach the
+tested tar.gz to a GitHub Release for the matching version. This workflow does
+not create that release automatically; do not assume a release asset exists
+until it is published. The source-code ZIP from GitHub is not the tested package.
+
+### Source checkout / submodule
+
 Clone the library using the public URL:
 
 ```sh
@@ -107,8 +134,20 @@ host-only Octave library: it is not a firmware component.
 octave --quiet tests/run_tests.m
 ```
 
-See VALIDATION.md for the baseline and hardware checklist. Current installation
-uses addpath; pkg install packaging is deliberately deferred.
+See VALIDATION.md for the baseline and hardware checklist. The motor project
+continues to use its pinned submodule with addpath; package installation is an
+alternative for other applications. Avoid loading both copies in one session.
+
+Build and test the distributable from the library root:
+
+```sh
+octave --no-gui --quiet --no-init-file --no-site-file scripts/build_package.m
+octave --no-gui --quiet --no-init-file --no-site-file tests/test_package.m
+```
+
+Version and archive name come from DESCRIPTION. Generated archives are ignored
+by Git. The build includes only metadata, license, functions, and documentation.
+COPYING is the package-manager copy of LICENSE; keep their contents identical.
 
 ### Continuous integration
 
@@ -119,6 +158,10 @@ startup files. An assertion failure fails the job; stalled tests time out.
 Both binary and hexadecimal modes are exercised through `MockSerial`, so no
 ESP32, USB connection, credentials, or instrument-control package is needed.
 The workflow has read-only repository permission and does not publish releases.
+It also builds the archive, installs it into an isolated package registry,
+loads it, runs the protocol tests against the installed functions, unloads and
+uninstalls it, and uploads the tested archive as the `octave-package` artifact.
+The existing v0.1.0 tag is unchanged; packaging starts with version 0.2.0.
 
 Run the same test command locally from the library root:
 

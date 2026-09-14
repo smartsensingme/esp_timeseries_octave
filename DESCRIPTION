@@ -1,0 +1,14 @@
+Name: esp_timeseries_octave
+Version: 0.2.0
+Date: 2026-09-14
+Author: José Alexandre de França
+Maintainer: José Alexandre de França <josealexandre@uel.br>
+Title: ESP time-series transport client
+Description: Receive and validate time-series captures using framed binary or
+ retryable hexadecimal blocks, with CRC and channel metadata decoding.
+ Offline decoding and tests require no hardware. Live serial communication
+ additionally requires instrument-control with serialport and serialportlist.
+Categories: Instrument Control
+Depends: octave (>= 8.4.0)
+License: MIT
+Url: https://github.com/smartsensingme/esp_timeseries_octave

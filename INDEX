@@ -1,0 +1,18 @@
+esp_timeseries_octave >> ESP time-series transport client
+Connection
+ esp_ts_load_instrument_control
+ esp_ts_open
+ esp_ts_ports
+ esp_ts_command
+Acquisition
+ esp_ts_capabilities
+ esp_ts_status
+ esp_ts_arm
+ esp_ts_wait_full
+ esp_ts_capture
+ esp_ts_clear
+Data
+ esp_ts_options
+ esp_ts_decode_payload
+ esp_ts_crc32
+ esp_ts_save

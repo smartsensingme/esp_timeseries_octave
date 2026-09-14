@@ -42,3 +42,9 @@ The owner supplied https://github.com/smartsensingme/esp_timeseries_octave.git
 and selected MIT on 2026-09-13. A read-only remote check confirmed an empty
 repository. Local Git integration may be prepared before publication, but the
 independent commit must be pushed before the consuming project's gitlink.
+
+Packaging 0.2.0 was tested locally on 2026-09-14 with GNU Octave 11.3.0:
+archive creation, isolated local installation, package loading, both mocked
+protocol modes using installed functions, unloading and uninstalling passed.
+User package registries were not modified. Ubuntu 24.04 CI packaging execution
+is pending publication; this does not add any new physical USB validation.
