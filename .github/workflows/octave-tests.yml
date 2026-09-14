@@ -38,6 +38,9 @@ jobs:
 
       - name: Test isolated package lifecycle
         timeout-minutes: 5
+        env:
+          # Exercise first-use configuration, not a pre-existing user registry.
+          XDG_CONFIG_HOME: ${{ runner.temp }}/esp-ts-clean-config
         run: octave --no-gui --quiet --no-init-file --no-site-file tests/test_package.m
 
       - name: Upload tested package

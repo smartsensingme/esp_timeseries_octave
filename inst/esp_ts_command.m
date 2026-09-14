@@ -1,4 +1,8 @@
 function response = esp_ts_command (endpoint, command, print_response)
+  % Send one LF-terminated text command and return its trimmed response line.
+  % endpoint is an open serial object or a port name; print_response defaults
+  % to true. A caller-owned connection is never closed by this function.
+  % Application commands and error responses are interpreted by the caller.
   if (nargin < 2 || nargin > 3)
     print_usage ();
   endif

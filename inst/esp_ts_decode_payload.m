@@ -1,6 +1,9 @@
 function [raw, values] = esp_ts_decode_payload (payload, channel_count, ...
                                              sample_count, invalid_i16, ...
                                              scales, offsets)
+  % Decode sample-interleaved little-endian int16 bytes into channel rows.
+  % Return raw counts and values = counts * scale + offset for each channel.
+  % invalid_i16 samples become NaN in values; raw preserves the original data.
   payload = uint8 (payload(:));
   expected_bytes = 2 * channel_count * sample_count;
   if (numel (payload) != expected_bytes)

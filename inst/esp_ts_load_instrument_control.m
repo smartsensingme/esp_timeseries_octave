@@ -1,4 +1,6 @@
 function esp_ts_load_instrument_control ()
+  % Load instrument-control and require serialport and serialportlist support.
+  % Raise an actionable error when the package or serial API is unavailable.
   try
     pkg load instrument-control;
   catch

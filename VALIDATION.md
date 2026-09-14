@@ -47,4 +47,8 @@ Packaging 0.2.0 was tested locally on 2026-09-14 with GNU Octave 11.3.0:
 archive creation, isolated local installation, package loading, both mocked
 protocol modes using installed functions, unloading and uninstalling passed.
 User package registries were not modified. Ubuntu 24.04 CI packaging execution
-is pending publication; this does not add any new physical USB validation.
+passed the installed-code tests but failed during cleanup: restoring local_list
+attempted to create a registry beneath an absent default user configuration
+directory. The dedicated test process now leaves its isolated pkg settings in
+place until exit instead of restoring them. Success is printed after cleanup.
+The CI rerun with this fix is pending; no new physical USB validation is implied.
